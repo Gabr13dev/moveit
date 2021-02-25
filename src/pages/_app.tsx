@@ -1,7 +1,14 @@
-import '../styles/global.css';
+import "../styles/global.css";
+
+import { ChallengeProvider } from "../contexts/ChallengesContext";
+
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <ChallengeProvider>
+        <Component {...pageProps} />
+    </ChallengeProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

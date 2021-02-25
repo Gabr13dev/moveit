@@ -49,10 +49,41 @@
     color: var(--white);
     font-size: 1.25rem;
     font-weight: 600;
+    transition: background-color 0.4s;
 }
 
-.countDownButton:hover {
+.countDownButton:not(:disabled):hover {
     background: var(--blue-dark);
-    transition: background-color 0.4s;
+}
+
+.countDownButtonActive{
+    color: var(--title);
+    background: var(--white);
+}
+
+.countDownButtonActive:hover svg path{
+    fill: #fff;
+}
+
+.countDownButtonActive:not(:disabled):hover{
+    background: var(--red);
+    color: var(--white);
+}
+
+.countDownButton:disabled{
+    cursor: not-allowed;
+}
+
+.countDownButtonFinished{
+    border-bottom: 5px solid #4cd62b;
+}
+
+.icon{
+   padding-left: 0.5rem;
+   height: 2rem;
+}
+
+.check{
+    height: 1.3rem;
 }
 

@@ -1,30 +1,18 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "../styles/components/Countdown.module.css";
+import { CountdownContext } from "../contexts/CountdownContext";
 
 interface CountdownProps {
-  start: number;
+  
 }
 
 export function Countdown(props: CountdownProps) {
-  const [time, setTime] = useState(props.start * 60);
-  const [active, setActive] = useState(false);
+  const {minute, seconds, hasFinished, isActive, resetCountdown, startCountdown} = useContext(CountdownContext);
 
-  const minute = Math.floor(time / 60);
-  const seconds = time % 60;
+  const [minuteleft, minuteRight] = String(minute).padStart(2, "0").split("");
+  const [secondsleft, secondsRight] = String(seconds).padStart(2, "0").split("");
 
-  const [minuteleft,minuteRight] = String(minute).padStart(2, '0').split('');
-  const [secondsleft,secondsRight] = String(seconds).padStart(2, '0').split('');
-  function startCountdown(){
-    setActive(true)
-  }
-
-  useEffect(() => {
-    if(active && time > 0){
-      setTimeout(() => {
-        setTime(time - 1);
-      }, 1000)
-    }
-  }, [active, time])
+  
 
   return (
     <div>
@@ -39,9 +27,34 @@ export function Countdown(props: CountdownProps) {
           <span>{secondsRight}</span>
         </div>
       </div>
-      <button type="button" className={styles.countDownButton} onClick={startCountdown}>
-        Iniciar Ciclo
-      </button>
+      {hasFinished ? (
+        <button className={`${styles.countDownButton} ${styles.countDownButtonActive} ${styles.countDownButtonFinished}`} disabled>
+          Ciclo encerrado <img src="icons/check.svg" className={`${styles.icon} ${styles.check}`} />
+        </button>
+      ) : (
+        <>
+          {isActive ? (
+            <button
+              type="button"
+              className={`${styles.countDownButton} ${styles.countDownButtonActive}`}
+              onClick={resetCountdown}
+            >
+              Abandonar Ciclo <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.icon}>
+              <path d="M27 14.41L25.59 13L20 18.59L14.41 13L13 14.41L18.59 20L13 25.59L14.41 27L20 21.41L25.59 27L27 25.59L21.41 20L27 14.41Z" fill="#000"/>
+            </svg>
+
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={styles.countDownButton}
+              onClick={startCountdown}
+            >
+              Iniciar Ciclo <img src="icons/play.svg" className={styles.icon}/>
+            </button>
+          )}
+        </>
+      )}
     </div>
   );
 }

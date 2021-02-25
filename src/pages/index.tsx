@@ -1,33 +1,44 @@
+import Head from "next/head";
+
 import { CompleteChallenges } from "../components/CompleteChallenges";
 import { Countdown } from "../components/Countdown";
 import { ExperienceBar } from "../components/ExperienceBar";
 import { Profile } from "../components/Profile";
+import { ChallengeBox } from "../components/ChallengeBox";
 
-import Head from 'next/head';
+import { useContext } from "react";
 
-import styles from '../styles/pages/Home.module.css';
+import { ChallengeContext } from "../contexts/ChallengesContext";
+import { CountdownProvider } from "../contexts/CountdownContext";
+
+import styles from "../styles/pages/Home.module.css";
 
 export default function Home() {
-  var min: string = "4000";
-  var max: string = "5000";
-  var current: number = 4700;
+  const { level } = useContext(ChallengeContext);
+  var levelUser = "" + level;
   return (
     <div className={styles.container}>
       <Head>
         <title>Inicio | Moveit</title>
       </Head>
-      <ExperienceBar current={current} min={min} max={max} />
+      <ExperienceBar />
+      <CountdownProvider>
+        <section>
+          <div>
+            <Profile
+              avatarImage="https://github.com/Gabr13dev.png"
+              nameProfile="Gabriel Almeida"
+              level={levelUser}
+            />
+            <CompleteChallenges />
 
-      <section>
-        <div>
-          <Profile avatarImage="https://github.com/Gabr13dev.png" nameProfile="Gabriel Almeida" level="8" />
-          <CompleteChallenges complete="37" />
-          <Countdown start={25} />
-        </div>
-        <div>
-
-        </div>
-      </section>
+            <Countdown />
+          </div>
+          <div>
+            <ChallengeBox />
+          </div>
+        </section>
+      </CountdownProvider>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import styles from '../styles/components/Profile.module.css';
 
+import Cookies from 'js-cookie'
+
 interface ProfileProps {
   avatarImage: string;
   nameProfile: string;
@@ -7,6 +9,8 @@ interface ProfileProps {
 }
 
 export function Profile(props: ProfileProps) {
+
+    const currentLevel = props.level == 'undefined' ? Cookies.level : props.level;
     return(
         <div className={styles.profileContainer}>
             <img src={props.avatarImage} alt={props.nameProfile} />
@@ -14,7 +18,7 @@ export function Profile(props: ProfileProps) {
                 <strong>{props.nameProfile}</strong>
                 <p>
                     <img src="icons/level.svg" alt="levelIcon" />
-                    Level {props.level}
+                    Level {currentLevel}
                     </p>
             </div>
         </div>

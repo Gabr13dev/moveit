@@ -16,6 +16,22 @@
   --blue: #5965e0;
   --blue-dark: #4953b8;
   --blue-twitter: #2aa9e0;
+  --background-modal: #fff;
+}
+
+html[data-theme='dark'] {
+  --white: rgba(0, 0, 0, 0.26);
+  --background: #434444;
+  --gray-line: #dcdde0;
+  --text: #e7e4e4;
+  --text-highlight: #5c69fa;
+  --title: #9ab9fa;
+  --red: #e83f5b;
+  --green: #4cd62b;
+  --blue: #4e5cf3;
+  --blue-dark: #4953b8;
+  --blue-twitter: #2aa9e0;
+  --background-modal: rgba(0, 0 ,0, 1);
 }
 
 @media (max-width: 1080px) {
